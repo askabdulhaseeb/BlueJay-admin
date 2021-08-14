@@ -8,6 +8,7 @@ class CustomTextFormField extends StatefulWidget {
     required this.title,
     required TextEditingController controller,
     this.keyboardType = TextInputType.text,
+    this.textInputAction = TextInputAction.next,
     this.validator,
     this.initialValue,
     this.hint,
@@ -20,6 +21,7 @@ class CustomTextFormField extends StatefulWidget {
         super(key: key);
   final TextEditingController _controller;
   final TextInputType? keyboardType;
+  final TextInputAction? textInputAction;
   final String? Function(String?)? validator;
   final String? initialValue;
   final String title;
@@ -59,6 +61,7 @@ class CustomTextFormFieldState extends State<CustomTextFormField> {
         readOnly: widget.readOnly,
         keyboardType: widget.keyboardType,
         autofocus: widget.autoFocus,
+        textInputAction: TextInputAction.next,
         // ignore: avoid_bool_literals_in_conditional_expressions
         obscureText: (widget.isPassword == true)
             ? (isVisible == true)

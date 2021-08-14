@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue,
         splashColor: Colors.blueAccent,
+        iconTheme: const IconThemeData(color: Colors.blue),
         
       ),
       home: const LoginScreen(),
