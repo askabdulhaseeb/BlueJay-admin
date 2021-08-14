@@ -1,4 +1,20 @@
 class CustomValidator {
+  static String? email(String? value) {
+    if (!RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(value!)) {
+      return 'Email is Invalide';
+    }
+    return null;
+  }
+
+  static String? password(String? value) {
+    if (value!.length < 6) {
+      return 'Password should be greater then 6 digits';
+    }
+    return null;
+  }
+
   static String? lessThen3(String? value) {
     return (value!.length < 3) ? 'Enter more then 2 characters' : null;
   }

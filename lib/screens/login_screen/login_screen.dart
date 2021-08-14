@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:pantrycheck_admin/screens/home_screen/home_screen.dart';
+import 'package:pantrycheck_admin/screens/widgets/custom_inkwell_button.dart';
+import 'package:pantrycheck_admin/screens/widgets/custom_textformfield.dart';
+import 'package:pantrycheck_admin/utilities/custom_validator.dart';
+import 'package:pantrycheck_admin/utilities/images.dart';
+import 'package:pantrycheck_admin/utilities/utilities.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -9,15 +15,52 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: <Widget>[
-          
-        ],
+      body: Form(
+        key: _key,
+        child: Padding(
+          padding: EdgeInsets.all(Utilities.padding),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: size.height * 0.16),
+              Image.asset(CustomImages.appLogo),
+              CustomTextFormField(
+                title: 'Email',
+                controller: _email,
+                hint: 'test@test.com',
+                validator: (String? value) => CustomValidator.email(value),
+              ),
+              CustomTextFormField(
+                title: 'Password',
+                controller: _password,
+                isPassword: true,
+                validator: (String? value) => CustomValidator.password(value),
+              ),
+              const SizedBox(height: 10),
+              CustomInkWellButton(
+                onTap: () {
+                  if (_key.currentState!.validate()) {
+                    // TODO: Firebase Login Function
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      HomeScreen.routeName,
+                      (Route<dynamic> route) => false,
+                    );
+                  }
+                },
+                child: const Text(
+                  'Login',
+                  style: TextStyle(fontSize: 16, letterSpacing: 1),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'BlueJay',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue,
+        splashColor: Colors.blueAccent,
+        
       ),
       home: const LoginScreen(),
       routes: <String, WidgetBuilder>{

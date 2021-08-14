@@ -28,7 +28,6 @@ class CustomInkWellButton extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(
                 color: Theme.of(context).primaryColor,
-                width: 0.5,
               ),
               borderRadius: BorderRadius.circular(Utilities.borderRadious),
             ),
