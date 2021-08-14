@@ -24,6 +24,7 @@ class CustomInkWellButton extends StatelessWidget {
               vertical: 10,
               horizontal: 30,
             ),
+            
             alignment: Alignment.center,
             decoration: BoxDecoration(
               border: Border.all(

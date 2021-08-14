@@ -16,6 +16,7 @@ class CustomTextFormField extends StatefulWidget {
     this.autoFocus = false,
     this.padding = 4,
     this.isPassword = false,
+    this.maxLines = 1,
     Key? key,
   })  : _controller = controller,
         super(key: key);
@@ -30,6 +31,7 @@ class CustomTextFormField extends StatefulWidget {
   final bool autoFocus;
   final bool isPassword;
   final double padding;
+  final int? maxLines;
 
   @override
   CustomTextFormFieldState createState() => CustomTextFormFieldState();
@@ -62,6 +64,7 @@ class CustomTextFormFieldState extends State<CustomTextFormField> {
         keyboardType: widget.keyboardType,
         autofocus: widget.autoFocus,
         textInputAction: TextInputAction.next,
+        maxLines: widget.maxLines,
         // ignore: avoid_bool_literals_in_conditional_expressions
         obscureText: (widget.isPassword == true)
             ? (isVisible == true)

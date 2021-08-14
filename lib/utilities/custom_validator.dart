@@ -15,6 +15,14 @@ class CustomValidator {
     return null;
   }
 
+  static String? isEmpty(String? value) {
+    return (value!.isEmpty) ? 'Field could not be empty' : null;
+  }
+
+  static String? lessThen2(String? value) {
+    return (value!.length < 2) ? 'Enter more then 1 characters' : null;
+  }
+
   static String? lessThen3(String? value) {
     return (value!.length < 3) ? 'Enter more then 2 characters' : null;
   }

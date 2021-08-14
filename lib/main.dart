@@ -15,9 +15,8 @@ class MyApp extends StatelessWidget {
       title: 'BlueJay',
       theme: ThemeData(
         primaryColor: Colors.blue,
-        splashColor: Colors.blueAccent,
+        splashColor: Colors.blue[200],
         iconTheme: const IconThemeData(color: Colors.blue),
-        
       ),
       home: const LoginScreen(),
       routes: <String, WidgetBuilder>{
