@@ -4,10 +4,15 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pantrycheck_admin/model/primary_category.dart';
+import 'package:pantrycheck_admin/model/secondary_category.dart';
+import 'package:pantrycheck_admin/providers/primary_category_provider.dart';
 import 'package:pantrycheck_admin/screens/home_screen/home_screen.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_textformfield.dart';
+import 'package:pantrycheck_admin/utilities/custom_dropdown.dart';
 import 'package:pantrycheck_admin/utilities/custom_validator.dart';
 import 'package:pantrycheck_admin/utilities/utilities.dart';
+import 'package:provider/provider.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({Key? key}) : super(key: key);
@@ -27,6 +32,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   File? file;
   @override
   Widget build(BuildContext context) {
+    final CategoryProvider provider = Provider.of<CategoryProvider>(context);
     return Scaffold(
       appBar: const CupertinoNavigationBar(
         middle: Text('Add Product'),
@@ -46,26 +52,30 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 hint: 'Product Unique ID',
                 validator: (String? value) => CustomValidator.lessThen3(value),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  const Expanded(
-                    child: Text(
-                      'Write ID OR click scan barcode',
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.end,
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () async => _barcodeScanning(),
-                    splashRadius: 24,
-                    icon: const Icon(
-                      CupertinoIcons.barcode_viewfinder,
-                      size: 34,
-                    ),
-                  )
-                ],
+              _selectScanBarcodeWidget(),
+              CustomDropdownButton(
+                items: provider.primary
+                    .map((PrimaryCategory e) => DropdownMenuItem<String>(
+                          value: e.id,
+                          child: Text(e.title),
+                        ))
+                    .toList(),
+                selectedItem: provider.selectedPri,
+                hint: 'Primory Category',
+                onChange: (String? value) => provider.onPrimorySelection(value),
+              ),
+              CustomDropdownButton(
+                items: provider
+                    .secondory(provider.selectedPri)
+                    .map((SecondaryCategory e) => DropdownMenuItem<String>(
+                          value: e.id,
+                          child: Text(e.title),
+                        ))
+                    .toList(),
+                selectedItem: provider.selectedSec,
+                hint: 'Secondory Category',
+                onChange: (String? value) =>
+                    provider.onSecondorySelection(value),
               ),
               CustomTextFormField(
                 title: 'Name',
@@ -115,6 +125,30 @@ class _AddProductScreenState extends State<AddProductScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Row _selectScanBarcodeWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        const Expanded(
+          child: Text(
+            'Write ID OR click scan barcode',
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.end,
+            style: TextStyle(color: Colors.grey),
+          ),
+        ),
+        IconButton(
+          onPressed: () async => _barcodeScanning(),
+          splashRadius: 24,
+          icon: const Icon(
+            CupertinoIcons.barcode_viewfinder,
+            size: 34,
+          ),
+        )
+      ],
     );
   }
 
