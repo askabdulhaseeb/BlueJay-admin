@@ -38,3 +38,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// flutter build web
+// firebase deploy --only hosting
+// live link: https://bluejay-4e4f8.web.app
