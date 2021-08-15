@@ -18,12 +18,6 @@ class Copyrights extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Text(
-                  'Point of Sale system. ',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w200,
-                  ),
-                ),
-                const Text(
                   'Powered By ',
                   style: TextStyle(
                     fontWeight: FontWeight.w200,

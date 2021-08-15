@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pantrycheck_admin/screens/home_screen/home_screen.dart';
+import 'package:pantrycheck_admin/screens/widgets/copyrights.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_inkwell_button.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_textformfield.dart';
 import 'package:pantrycheck_admin/utilities/custom_validator.dart';
@@ -57,7 +58,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   'Login',
                   style: TextStyle(fontSize: 16, letterSpacing: 1),
                 ),
-              )
+              ),
+              const Spacer(),
+              Copyrights(),
+              // const SizedBox(height: 10),
             ],
           ),
         ),
