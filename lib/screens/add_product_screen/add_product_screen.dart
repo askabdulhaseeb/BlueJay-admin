@@ -66,7 +66,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               CustomDropdownButton(
                 items: provider
-                    .secondory(provider.selectedPri)
+                    .secondory(provider.selectedPri)!
                     .map((SecondaryCategory e) => DropdownMenuItem<String>(
                           value: e.id,
                           child: Text(e.title),

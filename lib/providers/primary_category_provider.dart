@@ -9,22 +9,21 @@ class CategoryProvider extends ChangeNotifier {
     PrimaryCategory(id: 'recipe', title: 'Recipes'),
   ];
   String? selectedPri;
-  // ignore: unused_field
-  List<SecondaryCategory> _secCat = <SecondaryCategory>[];
+  // ignore: prefer_final_fields
+  List<SecondaryCategory> _secCat = <SecondaryCategory>[
+    SecondaryCategory(id: 'drink', title: 'Drink', priID: 'food'),
+    SecondaryCategory(id: 'fruit', title: 'Fruit', priID: 'food'),
+    SecondaryCategory(id: 'grocery', title: 'Grocery', priID: 'food'),
+    SecondaryCategory(id: '5mints', title: '5 Mints think', priID: 'recipe'),
+    SecondaryCategory(id: '30mints', title: '30 Mints think', priID: 'recipe'),
+  ];
   String? selectedSec;
 
   List<PrimaryCategory> get primary => <PrimaryCategory>[..._priCat];
-  // List<SecondaryCategory> get secondory => <SecondaryCategory>[
-  //       ..._secCat.where((SecondaryCategory e) => e.priID == selectedPri)
-  //     ];
-  List<SecondaryCategory> secondory(String? id) {
+  List<SecondaryCategory>? secondory(String? id) {
     final List<SecondaryCategory> _temp = <SecondaryCategory>[];
-    // _temp.addAll(_secCat.where((SecondaryCategory e) => e.priID == id));
-    _secCat.forEach((element) {
-      if (element.priID == id) {
-        _temp.add(element);
-      }
-    });
+    _temp
+        .addAll(_secCat.where((SecondaryCategory e) => e.priID == selectedPri));
     return _temp;
   }
 
@@ -45,6 +44,7 @@ class CategoryProvider extends ChangeNotifier {
   }
 
   void onPrimorySelection(String? value) {
+    selectedSec = null;
     selectedPri = value;
     notifyListeners();
   }
