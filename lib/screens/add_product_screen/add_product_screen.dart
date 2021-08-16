@@ -4,15 +4,19 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pantrycheck_admin/database/product_firebase_api.dart';
 import 'package:pantrycheck_admin/model/primary_category.dart';
+import 'package:pantrycheck_admin/model/product.dart';
 import 'package:pantrycheck_admin/model/secondary_category.dart';
 import 'package:pantrycheck_admin/providers/primary_category_provider.dart';
 import 'package:pantrycheck_admin/screens/home_screen/home_screen.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_textformfield.dart';
 import 'package:pantrycheck_admin/utilities/custom_dropdown.dart';
+import 'package:pantrycheck_admin/utilities/custom_toast.dart';
 import 'package:pantrycheck_admin/utilities/custom_validator.dart';
 import 'package:pantrycheck_admin/utilities/utilities.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({Key? key}) : super(key: key);
@@ -101,16 +105,46 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 title: 'Description',
                 controller: _description,
                 hint: 'Product detail description here',
+                textInputAction: TextInputAction.done,
+                validator: (String? value) => CustomValidator.isEmpty(value),
                 maxLines: 4,
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width / 2,
                 child: ElevatedButton(
-                  onPressed: () {
-                    if (_key.currentState!.validate()) {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        HomeScreen.routeName,
-                        (Route<dynamic> route) => false,
+                  onPressed: () async {
+                    if (_key.currentState!.validate() &&
+                        _image != null &&
+                        provider.selectedPri != null &&
+                        provider.selectedSec != null) {
+                      if (await ProductFirebaseAPI()
+                          .isProductIDAvailable(pid: _barcode.text.trim())) {
+                        //TODO: Show Progress Button
+                        final String? imageURL = await ProductFirebaseAPI()
+                            .uploadImage(File(_image!.path), _barcode.text);
+                        final Product product = Product(
+                          pid: _barcode.text.trim(),
+                          name: _name.text.trim(),
+                          imageURL: imageURL,
+                          priID: provider.selectedPri,
+                          secID: provider.selectedSec,
+                          price: double.parse(_price.text.trim()),
+                          qty: int.parse(_qty.text.trim()),
+                          description: _description.text.trim(),
+                        );
+                        await ProductFirebaseAPI().addProduct(product: product);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          HomeScreen.routeName,
+                          (Route<dynamic> route) => false,
+                        );
+                      } else {
+                        CustomToast.errorToast(
+                          message: 'Product ID Already Assign to a product',
+                        );
+                      }
+                    } else {
+                      CustomToast.errorToast(
+                        message: 'Fill all requirements',
                       );
                     }
                   },
@@ -120,7 +154,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 100),
+              SizedBox(height: MediaQuery.of(context).size.height / 3),
             ],
           ),
         ),
