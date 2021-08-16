@@ -57,27 +57,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-  cloud_functions:
+  cloud_firestore:
     dependency: "direct main"
     description:
-      name: cloud_functions
+      name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
-  cloud_functions_platform_interface:
+    version: "2.4.0"
+  cloud_firestore_platform_interface:
     dependency: transitive
     description:
-      name: cloud_functions_platform_interface
+      name: cloud_firestore_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.8"
-  cloud_functions_web:
+    version: "5.3.0"
+  cloud_firestore_web:
     dependency: transitive
     description:
-      name: cloud_functions_web
+      name: cloud_firestore_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.10"
+    version: "2.3.0"
   collection:
     dependency: transitive
     description:

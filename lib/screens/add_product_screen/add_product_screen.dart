@@ -156,8 +156,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
     try {
       final ScanResult scaned = await BarcodeScanner.scan();
       final String scanResult = scaned.rawContent;
-      print('Stored in Cart');
-
       setState(() => _barcode.text = scanResult);
     } catch (e) {
       // TODO: Display Error

@@ -1,3 +1,4 @@
+import 'package:pantrycheck_admin/model/app_user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserLocalData {
@@ -10,7 +11,6 @@ class UserLocalData {
   static const String _uidKey = 'UIDKEY';
   static const String _emailKey = 'EMAILKEY';
   static const String _displayNameKey = 'DISPLAYNAMEKEY';
-  static const String _phoneNumberKey = 'PhoneNumber';
   static const String _imageUrlKey = 'IMAGEURLKEY';
 
   //s
@@ -25,9 +25,6 @@ class UserLocalData {
   static Future<void> setUserDisplayName(String name) async =>
       _preferences!.setString(_displayNameKey, name);
 
-  static Future<void> setUserPhoneNumber(String number) async =>
-      _preferences!.setString(_phoneNumberKey, number);
-
   static Future<void> setUserImageUrl(String url) async =>
       _preferences!.setString(_imageUrlKey, url);
 
@@ -38,8 +35,13 @@ class UserLocalData {
   static String get getUserEmail => _preferences!.getString(_emailKey) ?? '';
   static String get getUserDisplayName =>
       _preferences!.getString(_displayNameKey) ?? '';
-  static String get getUserPhoneNumber =>
-      _preferences!.getString(_phoneNumberKey) ?? '';
   static String get getUserImageUrl =>
       _preferences!.getString(_imageUrlKey) ?? '';
+
+  void storeAppUserData({required AppUser appUser}) {
+    setUserUID(appUser.uid);
+    setUserEmail(appUser.email);
+    setUserDisplayName(appUser.displayName);
+    setUserImageUrl(appUser.imageURL);
+  }
 }

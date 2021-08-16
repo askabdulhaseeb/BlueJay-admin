@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pantrycheck_admin/database/auth.dart';
 import 'package:pantrycheck_admin/screens/home_screen/home_screen.dart';
 import 'package:pantrycheck_admin/screens/widgets/copyrights.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_inkwell_button.dart';
@@ -45,13 +47,16 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 10),
               CustomInkWellButton(
-                onTap: () {
+                onTap: () async {
                   if (_key.currentState!.validate()) {
-                    // TODO: Firebase Login Function
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                      HomeScreen.routeName,
-                      (Route<dynamic> route) => false,
-                    );
+                    final User? _user = await AuthMethod()
+                        .loginWithEmailAndPassword(_email.text, _password.text);
+                    if (_user != null) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        HomeScreen.routeName,
+                        (Route<dynamic> route) => false,
+                      );
+                    }
                   }
                 },
                 child: const Text(

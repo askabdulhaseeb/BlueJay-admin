@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pantrycheck_admin/database/user_firebase_api.dart';
+import 'package:pantrycheck_admin/model/app_user.dart';
 import 'package:pantrycheck_admin/utilities/custom_toast.dart';
 
 import 'user_local_data.dart';
@@ -37,14 +40,18 @@ class AuthMethod {
   Future<User?> loginWithEmailAndPassword(String email, String password) async {
     try {
       final UserCredential result = await _auth
-          .signInWithEmailAndPassword(email: email, password: password)
+          .signInWithEmailAndPassword(
+        email: email.trim(),
+        password: password.trim(),
+      )
           .catchError((Object obj) {
         CustomToast.errorToast(message: obj.toString());
       });
       final User? user = result.user;
-      final User? currentUser = FirebaseAuth.instance.currentUser;
-      assert(user!.uid == currentUser!.uid);
-      // DatabaseMethods().storeUserInfoInLocalStorageFromFirebase(user.uid);
+      final DocumentSnapshot<Map<String, dynamic>> docs =
+          await UserFirebaseAPI().getInfo(uid: user!.uid);
+      final AppUser appUser = AppUser.fromDocuments(docs);
+      UserLocalData().storeAppUserData(appUser: appUser);
       return user;
     } catch (signUpError) {
       CustomToast.errorToast(message: signUpError.toString());

@@ -32,7 +32,9 @@ class MyApp extends StatelessWidget {
           splashColor: Colors.blue[200],
           iconTheme: const IconThemeData(color: Colors.blue),
         ),
-        home: const LoginScreen(),
+        home: (UserLocalData.getUserUID != '')
+            ? const HomeScreen()
+            : const LoginScreen(),
         routes: <String, WidgetBuilder>{
           LoginScreen.routeName: (_) => const LoginScreen(),
           HomeScreen.routeName: (_) => const HomeScreen(),
