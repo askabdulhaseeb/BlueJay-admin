@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pantrycheck_admin/screens/add_product_screen/add_product_screen.dart';
+import 'package:pantrycheck_admin/screens/widgets/custom_drawer.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_search.dart';
 import 'package:pantrycheck_admin/utilities/utilities.dart';
 
@@ -18,6 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        iconTheme: Theme.of(context).iconTheme,
         title: const Text(
           'Home',
           style: TextStyle(color: Colors.black),
@@ -38,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+      drawer: const CustomDrawer(),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Utilities.padding),
         child: Column(
