@@ -29,7 +29,7 @@ class ProductFirebaseAPI {
         .collection(_collection)
         .doc(product.pid)
         .set(product.toMap())
-        .catchError((e) {
+        .catchError((dynamic e) {
       CustomToast.errorToast(message: e.toString());
     });
   }
@@ -42,5 +42,15 @@ class ProductFirebaseAPI {
     } else {
       return true;
     }
+  }
+
+  Future<List<Product>> getAllProducts() async {
+    List<Product> product = [];
+    final QuerySnapshot<Map<String, dynamic>> docs =
+        await _instance.collection(_collection).get();
+    for (int i = 0; i < docs.docs.length; i++) {
+      product.add(Product.fromDocument(docs.docs[i]));
+    }
+    return product;
   }
 }

@@ -29,11 +29,11 @@ class CustomDrawer extends StatelessWidget {
                 AddProductScreen.routeName,
               ),
             ),
-            ListTile(
-              leading: const Icon(Icons.add),
-              title: const Text('Add Admin'),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   leading: const Icon(Icons.add),
+            //   title: const Text('Add Admin'),
+            //   onTap: () {},
+            // ),
             const Spacer(),
             ListTile(
               leading: const Icon(Icons.logout),
