@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pantrycheck_admin/database/auth.dart';
 import 'package:pantrycheck_admin/database/user_local_data.dart';
 import 'package:pantrycheck_admin/screens/add_product_screen/add_product_screen.dart';
+import 'package:pantrycheck_admin/screens/login_screen/login_screen.dart';
 import 'package:pantrycheck_admin/screens/widgets/copyrights.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_image.dart';
 import 'package:pantrycheck_admin/utilities/utilities.dart';
@@ -32,13 +33,19 @@ class CustomDrawer extends StatelessWidget {
             // ListTile(
             //   leading: const Icon(Icons.add),
             //   title: const Text('Add Admin'),
-            //   onTap: () {},
+            //   onTap: () {}, 
             // ),
             const Spacer(),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
-              onTap: () => AuthMethod().signOut(),
+              onTap: () {
+                AuthMethod().signOut();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  LoginScreen.routeName,
+                  (Route<dynamic> route) => false,
+                );
+              },
             ),
             Copyrights(),
           ],

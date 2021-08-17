@@ -5,6 +5,7 @@ import 'package:pantrycheck_admin/screens/home_screen/home_screen.dart';
 import 'package:pantrycheck_admin/screens/widgets/copyrights.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_inkwell_button.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_textformfield.dart';
+import 'package:pantrycheck_admin/screens/widgets/show_loading.dart';
 import 'package:pantrycheck_admin/utilities/custom_validator.dart';
 import 'package:pantrycheck_admin/utilities/images.dart';
 import 'package:pantrycheck_admin/utilities/utilities.dart';
@@ -49,6 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomInkWellButton(
                 onTap: () async {
                   if (_key.currentState!.validate()) {
+                    showLoadingDislog(context);
                     final User? _user = await AuthMethod()
                         .loginWithEmailAndPassword(_email.text, _password.text);
                     if (_user != null) {

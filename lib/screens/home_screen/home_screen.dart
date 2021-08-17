@@ -5,6 +5,7 @@ import 'package:pantrycheck_admin/model/product.dart';
 import 'package:pantrycheck_admin/screens/add_product_screen/add_product_screen.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_drawer.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_search.dart';
+import 'package:pantrycheck_admin/utilities/images.dart';
 import 'package:pantrycheck_admin/utilities/utilities.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -54,23 +55,32 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemCount: snapshot.data!.length,
                           itemBuilder: (BuildContext context, int index) {
                             final Product _pro = snapshot.data![index];
-                            return Card(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Image.network(_pro.imageURL ?? ''),
-                                  ),
-                                  Text(
-                                    'Name: ${_pro.name ?? 'No Name'}',
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                            return GestureDetector(
+                              onTap: () {
+                                
+                              },
+                              child: Card(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Center(
+                                        child: (_pro.imageURL == null)
+                                            ? Image.asset(CustomImages.appIcon)
+                                            : Image.network(_pro.imageURL!),
+                                      ),
                                     ),
-                                  ),
-                                  Text('Price: ${_pro.price}'),
-                                  Text('Quantity: ${_pro.qty}'),
-                                ],
+                                    Text(
+                                      'Name: ${_pro.name ?? 'No Name'}',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text('Price: ${_pro.price}'),
+                                    Text('Quantity: ${_pro.qty}'),
+                                  ],
+                                ),
                               ),
                             );
                           },

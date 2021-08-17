@@ -11,6 +11,7 @@ import 'package:pantrycheck_admin/model/secondary_category.dart';
 import 'package:pantrycheck_admin/providers/primary_category_provider.dart';
 import 'package:pantrycheck_admin/screens/home_screen/home_screen.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_textformfield.dart';
+import 'package:pantrycheck_admin/screens/widgets/show_loading.dart';
 import 'package:pantrycheck_admin/utilities/custom_dropdown.dart';
 import 'package:pantrycheck_admin/utilities/custom_toast.dart';
 import 'package:pantrycheck_admin/utilities/custom_validator.dart';
@@ -119,7 +120,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         provider.selectedSec != null) {
                       if (await ProductFirebaseAPI()
                           .isProductIDAvailable(pid: _barcode.text.trim())) {
-                        //TODO: Show Progress Button
+                        showLoadingDislog(context);
                         final String? imageURL = await ProductFirebaseAPI()
                             .uploadImage(File(_image!.path), _barcode.text);
                         final Product product = Product(
