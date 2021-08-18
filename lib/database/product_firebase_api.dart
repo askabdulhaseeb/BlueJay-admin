@@ -34,6 +34,16 @@ class ProductFirebaseAPI {
     });
   }
 
+  Future<void> updateProduct({required Product product}) async {
+    await _instance
+        .collection(_collection)
+        .doc(product.pid)
+        .update(product.toMap())
+        .catchError((dynamic e) {
+      CustomToast.errorToast(message: e.toString());
+    });
+  }
+
   Future<bool> isProductIDAvailable({required String pid}) async {
     final DocumentSnapshot<Map<String, dynamic>> doc =
         await _instance.collection(_collection).doc(pid).get();

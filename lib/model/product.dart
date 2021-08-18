@@ -37,12 +37,12 @@ class Product {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'pid': pid,
+      'pid': pid.toString().trim(),
       'priID': priID,
       'secID': secID,
-      'name': name,
+      'name': name.toString().trim(),
       'imageURL': imageURL,
-      'description': description,
+      'description': description.toString().trim(),
       'price': price,
       'qty': qty,
     };

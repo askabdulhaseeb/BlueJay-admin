@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pantrycheck_admin/database/product_firebase_api.dart';
 import 'package:pantrycheck_admin/model/product.dart';
 import 'package:pantrycheck_admin/screens/add_product_screen/add_product_screen.dart';
+import 'package:pantrycheck_admin/screens/edit_product_screen/edit_product_screen.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_drawer.dart';
 import 'package:pantrycheck_admin/screens/widgets/custom_search.dart';
 import 'package:pantrycheck_admin/utilities/images.dart';
@@ -57,7 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             final Product _pro = snapshot.data![index];
                             return GestureDetector(
                               onTap: () {
-                                
+                                Navigator.of(context).push(
+                                  MaterialPageRoute<dynamic>(
+                                    builder: (BuildContext context) =>
+                                        EditProductScreen(product: _pro),
+                                  ),
+                                );
                               },
                               child: Card(
                                 child: Column(
