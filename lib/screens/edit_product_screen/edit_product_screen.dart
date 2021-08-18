@@ -117,7 +117,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
               onPressed: () async {
                 if (_key.currentState!.validate()) {
                   showLoadingDislog(context);
-                  // TODO: Update
                   widget.product.name = _name.text;
                   widget.product.qty = int.parse(_qty.text);
                   widget.product.price = double.parse(_price.text);

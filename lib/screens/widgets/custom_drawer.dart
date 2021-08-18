@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pantrycheck_admin/database/auth.dart';
 import 'package:pantrycheck_admin/database/user_local_data.dart';
+import 'package:pantrycheck_admin/screens/add_admin_screen/add_admin_screen.dart';
 import 'package:pantrycheck_admin/screens/add_product_screen/add_product_screen.dart';
 import 'package:pantrycheck_admin/screens/login_screen/login_screen.dart';
 import 'package:pantrycheck_admin/screens/widgets/copyrights.dart';
@@ -24,17 +25,19 @@ class CustomDrawer extends StatelessWidget {
             const SizedBox(height: 10),
             // Other Buttons
             ListTile(
-              leading: const Icon(Icons.add),
+              leading: const Icon(Icons.add_shopping_cart),
               title: const Text('Add Product'),
               onTap: () => Navigator.of(context).pushNamed(
                 AddProductScreen.routeName,
               ),
             ),
-            // ListTile(
-            //   leading: const Icon(Icons.add),
-            //   title: const Text('Add Admin'),
-            //   onTap: () {}, 
-            // ),
+            ListTile(
+              leading: const Icon(Icons.add_moderator_outlined),
+              title: const Text('Add Admin'),
+              onTap: () {
+                Navigator.of(context).pushNamed(AddAdminScreen.routeName);
+              },
+            ),
             const Spacer(),
             ListTile(
               leading: const Icon(Icons.logout),

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pantrycheck_admin/providers/primary_category_provider.dart';
+import 'package:pantrycheck_admin/screens/add_admin_screen/add_admin_screen.dart';
 import 'package:provider/provider.dart';
 import 'database/user_local_data.dart';
 import 'screens/add_product_screen/add_product_screen.dart';
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'BlueJay',
         theme: ThemeData(
           primaryColor: Colors.blue,
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
           HomeScreen.routeName: (_) => const HomeScreen(),
           AddProductScreen.routeName: (_) => const AddProductScreen(),
           // EditProductScreen.routeName: (_) => const EditProductScreen(),
+          AddAdminScreen.routeName: (_) => const AddAdminScreen(),
         },
       ),
     );
@@ -48,3 +51,7 @@ class MyApp extends StatelessWidget {
 // flutter build web
 // firebase deploy --only hosting
 // live link: https://bluejay-4e4f8.web.app
+
+// Certificate fingerprints:
+//   SHA1: F6:3C:6E:07:37:98:D1:37:8D:8D:AD:2B:80:BE:5E:2C:50:EF:71:F9
+//  SHA256: B8:1F:B2:FF:CB:2E:A2:45:12:1B:22:43:35:C5:B6:CC:A5:3B:CE:D4:6B:97:93:EF:76:D9:81:0F:F9:16:4C:6E
